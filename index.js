@@ -3,6 +3,7 @@ let express = require('express');
 let app = express();
 
 app.get('/',(req,res)=>{
+    console.log(process.env.dbuser);
     res.send('app starteddd');
 });
 
