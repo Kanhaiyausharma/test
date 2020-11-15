@@ -26,7 +26,7 @@ app.get('/',(req,res)=>{
         }else{
             res.status(200).send(result);
         }
-    });
+    }).limit(3);
 });
 
 port = process.env.PORT || 3000;
