@@ -12,11 +12,21 @@ mongoose.connect('mongodb+srv://'+dbuser+':'+dbpw+'@cluster0.fzeng.mongodb.net/s
     console.log('mongodb connected');
 }).catch((e)=>{  console.log(e); });
 
+let listingSchema = new mongoose.Schema({
+    listing_url:{type:String}
+},{collection:'listingsAndReviews'});
+
+let listingsrmodle = mongoose.model('listingSchema',listingSchema);
+
+
 app.get('/',(req,res)=>{
-    var clientIp = requestIp.getClientIp(req);
-    console.log(clientIp);
-    console.log(process.env.dbuser);
-    res.send('app starteddd');
+    listingsrmodle.find({},(err,result)=>{
+        if(err){
+            res.status(400).send(err.message);
+        }else{
+            res.status(200).send(result);
+        }
+    });
 });
 
 port = process.env.PORT || 3000;
